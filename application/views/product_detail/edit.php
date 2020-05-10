@@ -2,7 +2,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
+      <h1> 
         Data Tables
         <small>advanced tables</small>
       </h1>
@@ -30,15 +30,20 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <form role="form" method="POST" action="<?= base_url('admin/store_update_product/'.$product->id ) ?>">                              
+              <form role="form" method="POST" action="<?= base_url('admin/store_update_product_detail/'.$product_detail->id ) ?>">                              
                 <div class="form-group">
-                  <label>Nama Product</label>
-                  <input type="text" class="form-control" name="product_name" value="<?php echo $product->product_name ?>" placeholder="Enter ..." required>
+                  <label>Kompoisi</label>
+                  <select class="form-control" name="id_komposisi" required>
+                    <option value="<?php echo $product_detail->id_komposisi ?>"><?php echo $product_detail->id_komposisi; ?></option>
+                    <?php foreach ($komposisi as $key => $value) { ?>
+                      <option value="<?= $value->id ?>"><?= $value->komposisi_name ?></option>
+                    <?php } ?>                    
+                  </select>
                 </div>   
                 <div class="form-group">
-                  <label>Description</label>
-                  <textarea class="form-control" rows="6" name="description" ><?= $product->description  ?></textarea>
-                </div>                                                                                                                          
+                  <label>Jumlah</label>
+                  <input type="text" class="form-control" name="jumlah" value="<?php echo $product_detail->jumlah ?>" placeholder="Enter koma dengan titik" required>
+                </div>                                                                                                                            
                 <br>
                 <button type="submit" class="btn btn-success">Save</button>
                 <button type="button" class="btn btn-danger">Cancel</button>

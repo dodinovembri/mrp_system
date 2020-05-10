@@ -22,10 +22,13 @@ class Admin extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		if($this->session->userdata('status') != "login"){
-			redirect(base_url("welcome"));
+		if ($this->session->userdata('role') != 1) {
+			redirect(base_url('welcome'));						
+				if($this->session->userdata('status') != "login"){
+					redirect(base_url('welcome'));
+				}			
 		}
-		$this->load->model(array('User', 'Komposisi', 'Product', 'Product_detail'));
+		$this->load->model(array('User', 'Komposisi', 'Product', 'Product_detail', 'Cust_order', 'Cust_order_detail', 'Supp_order'));
 	}
 
 	public function index()
@@ -44,8 +47,9 @@ class Admin extends CI_Controller {
 	}
 
 	public function user()
-	{
+	{		
 		$data['user'] = $this->User->get_user()->result();		
+
         $this->load->view('templates/admin/header');        
         $this->load->view('templates/admin/head');        
         $this->load->view('templates/admin/sidebar');        
@@ -386,6 +390,7 @@ class Admin extends CI_Controller {
 	public function edit_product_detail($id)
 	{
 		$data['product_detail'] = $this->Product_detail->getDataById($id);		
+		$data['komposisi'] = $this->Komposisi->get_data();
 		
         $this->load->view('templates/admin/header');        
         $this->load->view('templates/admin/head');        
@@ -397,26 +402,176 @@ class Admin extends CI_Controller {
 
 	public function store_update_product_detail($id)
 	{
-		$product_detail_name = $this->input->post('product_detail_name');
-		$description = $this->input->post('description');
+		$id_komposisi = $this->input->post('id_komposisi');
+		$jumlah = $this->input->post('jumlah');
 
 		$data = array(
-		'product_detail_name' => $product_detail_name,
-		'description' => $description,		
+		'id_komposisi' => $id_komposisi,
+		'jumlah' => $jumlah,		
 		'updated_by' => $this->session->set_userdata('nama'),        
 		'updated_at' => date('Y-m-d h:m:s')
 		);
 
 		$insert = $this->Product_detail->update_data($data, $id);
-		$this->session->set_flashdata('success', 'Success update product_detail.');
-		redirect(base_url('admin/product_detail'));				
+		$this->session->set_flashdata('success', 'Success update product_detail.');		
+
+		redirect(base_url('admin/product_detail/'. $id));				
 	}
 
-	public function delete_product_detail($id)
+	public function delete_product_detail($id, $product_id)
 	{
 		$this->Product_detail->delete($id);	
-		$this->session->set_flashdata('success', 'Success delete product_detail.');
-		redirect(base_url('admin/product_detail'));				
+		$this->session->set_flashdata('success', 'Success delete product detail.');
+		redirect(base_url('admin/product_detail/'. $product_id));				
 	}
+
+	// for cust_order
+	public function cust_order()
+	{
+		$data['cust_order'] = $this->Cust_order->get_data();		
+
+        $this->load->view('templates/admin/header');        
+        $this->load->view('templates/admin/head');        
+        $this->load->view('templates/admin/sidebar');        
+        $this->load->view('cust_order/index', $data);
+        $this->load->view('templates/admin/foot');
+        $this->load->view('templates/admin/footer');
+	}
+
+	public function create_cust_order()
+	{		
+		$data['product'] = $this->Product->get_data();		
+
+        $this->load->view('templates/admin/header');        
+        $this->load->view('templates/admin/head');        
+        $this->load->view('templates/admin/sidebar');        
+        $this->load->view('cust_order/create', $data);
+        $this->load->view('templates/admin/foot');
+        $this->load->view('templates/admin/footer');
+	}	
+
+	public function store_cust_order()
+	{
+		$cust_name = $this->input->post('cust_name');
+		$id_product = $this->input->post('id_product');		
+		$jumlah = $this->input->post('jumlah');		
+
+		$data = array(
+		'cust_name' => $cust_name,
+		'id_product' => $id_product,			
+		'jumlah' => $jumlah,			
+		'created_by' => $this->session->userdata('nama'),        
+		'created_at' => date('Y-m-d h:m:s')
+		);
+		$insert = $this->Cust_order->input_data($data);
+
+		$get_komposisi = $this->Product_detail->getDataByIdAllDetail($id_product);
+		foreach ($get_komposisi as $key => $value) {
+			$data = array(
+				'id_customer_order' => $insert,
+				'id_product' => $id_product,			
+				'id_komposisi' => $value->id_komposisi,			
+				'jumlah' => $jumlah * $value->jumlah,			
+				'created_by' => $this->session->userdata('nama'),        
+				'created_at' => date('Y-m-d h:m:s')
+			);
+			$insert_detail = $this->Cust_order_detail->input_data($data);			
+		}
+		$this->session->set_flashdata('success', 'Success add new cust order.');
+		redirect(base_url('admin/cust_order'));		
+		
+	}
+
+	public function detail_cust_order($id)
+	{
+		$data['cust_order'] = $this->Cust_order->getDataById($id);
+
+        $this->load->view('templates/admin/header');        
+        $this->load->view('templates/admin/head');        
+        $this->load->view('templates/admin/sidebar');        
+        $this->load->view('cust_order/detail', $data);
+        $this->load->view('templates/admin/foot');
+        $this->load->view('templates/admin/footer');		
+	}		
+
+	public function edit_cust_order($id)
+	{
+		$data['cust_order'] = $this->Cust_order->getDataById($id);		
+		$data['product'] = $this->Product->get_data();		
+		
+        $this->load->view('templates/admin/header');        
+        $this->load->view('templates/admin/head');        
+        $this->load->view('templates/admin/sidebar');        
+        $this->load->view('cust_order/edit', $data);
+        $this->load->view('templates/admin/foot');
+        $this->load->view('templates/admin/footer');		
+	}
+
+	public function store_update_cust_order($id)
+	{
+		$cust_name = $this->input->post('cust_name');
+		$id_product = $this->input->post('id_product');		
+		$jumlah = $this->input->post('jumlah');	
+
+		$data = array(
+		'cust_name' => $cust_name,
+		'id_product' => $id_product,		
+		'jumlah' => $jumlah,		
+		'updated_by' => $this->session->set_userdata('nama'),        
+		'updated_at' => date('Y-m-d h:m:s')
+		);
+
+		$insert = $this->Cust_order->update_data($data, $id);
+		$this->session->set_flashdata('success', 'Success update customer order.');
+		redirect(base_url('admin/cust_order'));				
+	}
+
+	public function delete_cust_order($id)
+	{
+		$this->Cust_order->delete($id);	
+		$this->session->set_flashdata('success', 'Success delete cust_order.');
+		redirect(base_url('admin/cust_order'));				
+	}
+
+// for product cust_order_detail
+	public function cust_order_detail($id){
+		$data['order_detail'] = $this->Cust_order_detail->getDetailorder($id);		
+		$cust_order = $this->Cust_order->getOrder($id);		
+		$data['product'] = $this->Product->getDataById($cust_order->id_product);
+
+        $this->load->view('templates/admin/header');        
+        $this->load->view('templates/admin/head');        
+        $this->load->view('templates/admin/sidebar');        
+        $this->load->view('cust_order_detail/index', $data);
+        $this->load->view('templates/admin/foot');
+        $this->load->view('templates/admin/footer');
+	}
+
+	// for supp order
+	public function supp_order(){
+		$data['supp_order'] = $this->Supp_order->getJoinKomposisi();				
+
+        $this->load->view('templates/admin/header');        
+        $this->load->view('templates/admin/head');        
+        $this->load->view('templates/admin/sidebar');        
+        $this->load->view('supp_order/index', $data);
+        $this->load->view('templates/admin/foot');
+        $this->load->view('templates/admin/footer');
+	}	
+
+	public function store_edit_supp_order($id)
+	{
+		$status = $this->input->post('status');
+		
+		$data = array(
+		'status' => $status,			
+		'updated_by' => $this->session->set_userdata('nama'),        
+		'updated_at' => date('Y-m-d h:m:s')
+		);
+
+		$insert = $this->Supp_order->update_data($data, $id);
+		$this->session->set_flashdata('success', 'Success update customer order.');
+		redirect(base_url('admin/supp_order'));				
+	}	
 
 }

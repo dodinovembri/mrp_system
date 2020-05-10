@@ -42,7 +42,7 @@
                 </div>  
                 <div class="form-group">
                   <label>Jumlah</label>
-                  <input type="text" class="form-control" name="jumlah" placeholder="Enter ..." required>
+                  <input type="text" class="form-control" name="jumlah" placeholder="Enter koma dengan titik" required>
                 </div>                                                                                                                                                       
                 <br>
                 <button type="submit" class="btn btn-success">Save</button>

@@ -32,12 +32,12 @@
             <div class="box-body">
               <form role="form" method="POST" action="">                              
                 <div class="form-group">
-                  <label>Nama Komposisi</label>
-                  <input type="text" class="form-control" name="product_name" value="<?= $product_detail->id_komposisi ?>" placeholder="Enter ..." required>
+                  <label>Nama Product</label>
+                  <input type="text" class="form-control" name="product_name" value="<?= $product->product_name ?>" placeholder="Enter ..." required>
                 </div>   
                 <div class="form-group">
-                  <label>Jumlah</label>
-                  <input type="text" class="form-control" name="jumlah" value="<?= $product_detail->jumlah ?>" placeholder="Enter koma dengan titik" required>
+                  <label>Description</label>
+                  <textarea class="form-control" rows="6" name="description"><?= $product->description; ?></textarea>
                 </div> 
                 <br>                                                                                                                         
 

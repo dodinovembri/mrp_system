@@ -30,16 +30,27 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <form role="form" method="POST" action="">                              
+              <form role="form" method="POST" action="<?= base_url('admin/store_update_cust_order/'.$cust_order->id ) ?>">                              
                 <div class="form-group">
-                  <label>Nama Komposisi</label>
-                  <input type="text" class="form-control" name="product_name" value="<?= $product_detail->id_komposisi ?>" placeholder="Enter ..." required>
+                  <label>Nama Customer</label>
+                  <input type="text" class="form-control" name="cust_name" value="<?php echo $cust_order->cust_name ?>" placeholder="Enter ..." required>
                 </div>   
                 <div class="form-group">
+                  <label>Product</label>
+                  <select class="form-control" name="id_product" required>
+                    <option value="<?php echo $cust_order->id_product ?>"><?php echo $cust_order->id_product ?></option>
+                    <?php foreach ($product as $key => $value) { ?>
+                      <option value="<?= $value->id ?>"><?= $value->product_name ?></option>
+                    <?php } ?>                    
+                  </select>
+                </div>                                                                                                                   
+                <div class="form-group">
                   <label>Jumlah</label>
-                  <input type="text" class="form-control" name="jumlah" value="<?= $product_detail->jumlah ?>" placeholder="Enter koma dengan titik" required>
-                </div> 
-                <br>                                                                                                                         
+                  <input type="number" class="form-control" name="jumlah" value="<?php echo $cust_order->jumlah ?>" placeholder="Enter ..." required>
+                </div>                                                                                                                       
+                <br>
+                <button type="submit" class="btn btn-success">Save</button>
+                <button type="button" class="btn btn-danger">Cancel</button>
 
               </form>
             </div>

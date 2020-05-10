@@ -1,7 +1,7 @@
 <?php  
-    class Product_detail extends CI_Model {
+    class Cust_order_detail extends CI_Model {
 
-        public $table = 'product_detail';
+        public $table = 'customer_order_detail';
 
         function get_data(){                              
                return $this->db->query('SELECT * FROM '.$this->table)->result();
@@ -9,23 +9,13 @@
 
        public function input_data($data)
        {
-            $this->db->insert($this->table, $data);           
+            $this->db->insert($this->table, $data); 
        }
 
        public function getDataById($id)
        {
             return $this->db->query('SELECT * FROM '.$this->table. ' WHERE id = ' .$id)->row();           
        }
-
-       public function getDataByIdAll($id)
-       {
-            return $this->db->query('SELECT * FROM '.$this->table. ' WHERE id = ' .$id)->result();           
-       }   
-
-       public function getDataByIdAllDetail($id)
-       {
-            return $this->db->query('SELECT product_detail.*, komposisi.komposisi_name as komposisi_name FROM  product_detail JOIN komposisi ON product_detail.id_komposisi = komposisi.id WHERE product_detail.id_product = ' .$id)->result();           
-       }              
 
        public function update_data($data, $id)
        {
@@ -38,5 +28,9 @@
             return $this->db->query('DELETE FROM '.$this->table.' WHERE id = '. $id);           
        }
 
+       public function getDetailOrder($id)
+       {
+          return $this->db->query('SELECT customer_order_detail.*, komposisi.komposisi_name as komposisi_name, komposisi.satuan as satuan FROM '.$this->table.' JOIN komposisi ON customer_order_detail.id_komposisi = komposisi.id WHERE customer_order_detail.id_customer_order = '. $id)->result();
+       }       
     }
 ?>

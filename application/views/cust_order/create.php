@@ -30,16 +30,27 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <form role="form" method="POST" action="">                              
+              <form role="form" method="POST" action="<?= base_url('admin/store_cust_order') ?>">                              
                 <div class="form-group">
-                  <label>Nama Komposisi</label>
-                  <input type="text" class="form-control" name="product_name" value="<?= $product_detail->id_komposisi ?>" placeholder="Enter ..." required>
+                  <label>Nama Customer</label>
+                  <input type="text" class="form-control" name="cust_name" placeholder="Enter ..." required>
                 </div>   
                 <div class="form-group">
+                  <label>Product</label>
+                  <select class="form-control" name="id_product" required>
+                    <option>Select</option>
+                    <?php foreach ($product as $key => $value) { ?>
+                      <option value="<?= $value->id ?>"><?= $value->product_name ?></option>
+                    <?php } ?>                    
+                  </select>
+                </div>                                                                                                                   
+                <div class="form-group">
                   <label>Jumlah</label>
-                  <input type="text" class="form-control" name="jumlah" value="<?= $product_detail->jumlah ?>" placeholder="Enter koma dengan titik" required>
-                </div> 
-                <br>                                                                                                                         
+                  <input type="number" class="form-control" name="jumlah" placeholder="Enter ..." required>
+                </div>                                                
+                <br>
+                <button type="submit" class="btn btn-success">Save</button>
+                <button type="button" class="btn btn-danger">Cancel</button>
 
               </form>
             </div>

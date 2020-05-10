@@ -40,17 +40,37 @@ class Welcome extends CI_Controller {
 			'username' => $username,
 			'password' => md5($password)
 			);
-		$cek = $this->LoginModel->cek_login("user",$where)->num_rows();
+		$cek = $this->LoginModel->cek_login("user", $where)->num_rows();
+		$role = $this->LoginModel->cek_login("user", $where)->row();		
 		if($cek > 0){
- 
-			$data_session = array(
-				'nama' => $username,
-				'status' => "login"
-				);
- 
-			$this->session->set_userdata($data_session);
- 
-			redirect(base_url("admin"));
+
+ 			if ($role->id_role == 1) { 				
+ 				$data_session = array(
+					'nama' => $username,
+					'status' => "login",
+					'role' => 1
+					);
+				$this->session->set_userdata($data_session);
+				redirect(base_url("admin"));
+ 			}elseif ($role->id_role == 2) {
+				$data_session = array(
+					'nama' => $username,
+					'status' => "login",
+					'role' => 2
+					);
+				$this->session->set_userdata($data_session); 				
+				redirect(base_url("pimpinan")); 				
+ 			}elseif ($role->id_role == 3) {
+				$data_session = array(
+					'nama' => $username,
+					'status' => "login",
+					'role' => 3
+					);
+				$this->session->set_userdata($data_session);	 				
+				redirect(base_url("kepala_gudang")); 				 				
+ 			}else{
+ 				redirect(base_url());
+ 			}
  
 		}else{
 			redirect(base_url("admin"));

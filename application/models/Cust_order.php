@@ -1,7 +1,7 @@
 <?php  
-    class Product_detail extends CI_Model {
+    class Cust_order extends CI_Model {
 
-        public $table = 'product_detail';
+        public $table = 'customer_order';
 
         function get_data(){                              
                return $this->db->query('SELECT * FROM '.$this->table)->result();
@@ -9,23 +9,15 @@
 
        public function input_data($data)
        {
-            $this->db->insert($this->table, $data);           
+            $this->db->insert($this->table, $data); 
+            $last_id = $this->db->insert_id();          
+            return $last_id;
        }
 
        public function getDataById($id)
        {
             return $this->db->query('SELECT * FROM '.$this->table. ' WHERE id = ' .$id)->row();           
        }
-
-       public function getDataByIdAll($id)
-       {
-            return $this->db->query('SELECT * FROM '.$this->table. ' WHERE id = ' .$id)->result();           
-       }   
-
-       public function getDataByIdAllDetail($id)
-       {
-            return $this->db->query('SELECT product_detail.*, komposisi.komposisi_name as komposisi_name FROM  product_detail JOIN komposisi ON product_detail.id_komposisi = komposisi.id WHERE product_detail.id_product = ' .$id)->result();           
-       }              
 
        public function update_data($data, $id)
        {
@@ -36,6 +28,11 @@
        public function delete($id)
        {
             return $this->db->query('DELETE FROM '.$this->table.' WHERE id = '. $id);           
+       }
+
+       public function getOrder($id)
+       {
+            return $this->db->query('SELECT * FROM '.$this->table. ' WHERE id = ' .$id)->row();                   
        }
 
     }
