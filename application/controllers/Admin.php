@@ -468,15 +468,30 @@ class Admin extends CI_Controller {
 
 		$get_komposisi = $this->Product_detail->getDataByIdAllDetail($id_product);
 		foreach ($get_komposisi as $key => $value) {
-			$data = array(
-				'id_customer_order' => $insert,
-				'id_product' => $id_product,			
-				'id_komposisi' => $value->id_komposisi,			
-				'jumlah' => $jumlah * $value->jumlah,			
-				'created_by' => $this->session->userdata('nama'),        
-				'created_at' => date('Y-m-d h:m:s')
-			);
-			$insert_detail = $this->Cust_order_detail->input_data($data);			
+			$getstockcurrent = $this->Komposisi->getDataById($value->id_komposisi);
+			if ($getstockcurrent->stock < ($jumlah * $value->jumlah)) {
+				$this->Cust_order->delete($insert);
+				$this->session->set_flashdata('success', 'Product quantity is not enough.');
+				redirect(base_url('admin/cust_order'));	
+			}else{
+				$stocknow = $getstockcurrent->stock - ($jumlah * $value->jumlah);
+				$data_komposisi = array(
+					'stock' => $stocknow,
+					'updated_by' => $this->session->userdata('nama'),        
+					'updated_at' => date('Y-m-d h:m:s')					
+				);
+
+				$data = array(
+					'id_customer_order' => $insert,
+					'id_product' => $id_product,			
+					'id_komposisi' => $value->id_komposisi,			
+					'jumlah' => $jumlah * $value->jumlah,			
+					'created_by' => $this->session->userdata('nama'),        
+					'created_at' => date('Y-m-d h:m:s')
+				);
+			}							
+			$updatestock = $this->Komposisi->update_data($data_komposisi, $getstockcurrent->id);	
+			$insert_detail = $this->Cust_order_detail->input_data($data);	
 		}
 		$this->session->set_flashdata('success', 'Success add new cust order.');
 		redirect(base_url('admin/cust_order'));		
