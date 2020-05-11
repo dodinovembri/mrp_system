@@ -15,7 +15,7 @@
        public function getDataById($id)
        {
             return $this->db->query('SELECT * FROM '.$this->table. ' WHERE id = ' .$id)->row();           
-       }
+       }       
 
        public function update_data($data, $id)
        {

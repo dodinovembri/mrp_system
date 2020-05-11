@@ -28,23 +28,48 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active">
-          <a href="<?php echo base_url('pimpinan') ?>">
+          <a href="<?php echo base_url('admin') ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
         <li>
-          <a href="<?php echo base_url('kepala_gudang/supp_order') ?>">
+          <a href="<?php echo base_url('admin/cust_order') ?>">
             <i class="fa fa-files-o"></i>
-            <span>Order List</span>            
+            <span>Customers Order</span>            
           </a>         
-        </li> 
-        <li class="header">STOCK</li>      
+        </li>
         <li>
-          <a href="<?php echo base_url('kepala_gudang/stock') ?>">
+          <a href="<?php echo base_url('admin/supp_order') ?>">
+            <i class="fa fa-files-o"></i>
+            <span>Suppliers Order</span>            
+          </a>         
+        </li>        
+        <li class="header">MASTER DATA</li>      
+        <li>
+          <a href="<?php echo base_url('admin/product') ?>">
             <i class="fa fa-pie-chart"></i>
-            <span>Stock Control</span>        
+            <span>Products</span>
           </a>
-        </li>    
+        </li>         
+        <li>
+          <a href="<?php echo base_url('admin/komposisi') ?>">
+            <i class="fa fa-pie-chart"></i>
+            <span>Komposisi</span>        
+          </a>
+        </li>       
+        <li class="header">SYSTEM CONFIGURATON</li>        
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>System</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="<?php echo base_url('admin/user') ?>"><i class="fa fa-circle-o"></i> Users</a></li>
+          </ul>
+        </li>      
       </ul>
     </section>
     <!-- /.sidebar -->

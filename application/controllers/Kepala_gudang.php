@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin extends CI_Controller {
+class Kepala_gudang extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -30,17 +30,102 @@ class Admin extends CI_Controller {
 				}
 			}
 		}
-		$this->load->model(array('User', 'Komposisi', 'Product', 'Product_detail'));
+		$this->load->model(array('User', 'Komposisi', 'Product', 'Product_detail', 'Supp_order'));
 	}
 
 	public function index()
 	{
-        $this->load->view('templates/admin/header');        
-        $this->load->view('templates/admin/head');        
-        $this->load->view('templates/admin/sidebar');        
+        $this->load->view('templates/kepala_gudang/header');        
+        $this->load->view('templates/kepala_gudang/head');        
+        $this->load->view('templates/kepala_gudang/sidebar');        
         $this->load->view('dashboard/index');
-        $this->load->view('templates/admin/foot');
-        $this->load->view('templates/admin/footer');
+        $this->load->view('templates/kepala_gudang/foot');
+        $this->load->view('templates/kepala_gudang/footer');
+	}
+
+	// for stock
+	public function stock()
+	{
+		$data['stock'] = $this->Komposisi->get_data();
+
+        $this->load->view('templates/kepala_gudang/header');        
+        $this->load->view('templates/kepala_gudang/head');        
+        $this->load->view('templates/kepala_gudang/sidebar');        
+        $this->load->view('stock/index', $data);
+        $this->load->view('templates/kepala_gudang/foot');
+        $this->load->view('templates/kepala_gudang/footer');		
+	}
+
+	public function stock_define($id)
+	{
+		$data['stock'] = $this->Komposisi->getDataById($id);
+
+        $this->load->view('templates/kepala_gudang/header');        
+        $this->load->view('templates/kepala_gudang/head');        
+        $this->load->view('templates/kepala_gudang/sidebar');        
+        $this->load->view('stock/edit', $data);
+        $this->load->view('templates/kepala_gudang/foot');
+        $this->load->view('templates/kepala_gudang/footer');		
+	}	
+
+	public function store_update_stock($id)
+	{
+
+		$jumlah = $this->input->post('jumlah'); //D
+		$harga = $this->input->post('harga'); //Harga per
+		$biaya_pemesanan = $this->input->post('biaya_pemesanan'); //S
+		$biaya_penyimpanan_blm = $this->input->post('biaya_penyimpanan'); //H		
+		$biaya_penyimpanan = ($harga * $biaya_penyimpanan_blm)/100;		
+		$lt = $this->input->post('lt'); //lead time
+		$sl = $this->input->post('sl'); //Service level	
+		$eoq_blm = (2 * $biaya_pemesanan * $jumlah)/$biaya_penyimpanan;		
+		$eoq = sqrt($eoq_blm);
+		$frekuensi_pemesanan = $jumlah/$eoq;
+		$rop = ($jumlah/365) * $lt;
+		$jml_pemakaian_perhari = $jumlah/365;
+		$ss = $sl * $jml_pemakaian_perhari * $lt;					
+
+		$data = array(
+		'jumlah' => $jumlah,
+		'harga' => $harga,
+		'biaya_pemesanan' => $biaya_pemesanan,
+		'biaya_penyimpanan' => $biaya_penyimpanan,		
+		'lt' => $lt,		
+		'sl' => $sl,		
+		'eoq' => $eoq,				
+		'frekuensi_pemesanan' => $frekuensi_pemesanan,		
+		'rop' => $rop,		
+		'ss' => $ss,					
+		'updated_by' => $this->session->userdata('nama'),        
+		'updated_at' => date('Y-m-d h:m:s')
+		);
+
+		$insert = $this->Komposisi->update_data($data, $id);
+		$this->session->set_flashdata('success', 'Success update komposisi.');
+		redirect(base_url('kepala_gudang/stock'));		
+	}
+
+	// for supplier order
+	public function supp_order()
+	{
+		$data['supp_order'] = $this->Supp_order->getJoinKomposisi();						
+
+        $this->load->view('templates/kepala_gudang/header');        
+        $this->load->view('templates/kepala_gudang/head');        
+        $this->load->view('templates/kepala_gudang/sidebar');        
+        $this->load->view('supp_order/index_kg', $data);
+        $this->load->view('templates/kepala_gudang/foot');
+        $this->load->view('templates/kepala_gudang/footer');
+	}
+
+	public function create_supp_order()
+	{
+        $this->load->view('templates/kepala_gudang/header');        
+        $this->load->view('templates/kepala_gudang/head');        
+        $this->load->view('templates/kepala_gudang/sidebar');        
+        $this->load->view('supp_order/create');
+        $this->load->view('templates/kepala_gudang/foot');
+        $this->load->view('templates/kepala_gudang/footer');		
 	}
 
 }
