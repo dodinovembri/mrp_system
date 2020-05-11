@@ -21,8 +21,8 @@
             <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">CPU Traffic</span>
-              <span class="info-box-number">90<small>%</small></span>
+              <span class="info-box-text">Customer Order</span>
+              <span class="info-box-number"><?php echo isset($jumlah_customer_order) ? $jumlah_customer_order : ''; ?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -34,8 +34,8 @@
             <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Likes</span>
-              <span class="info-box-number">41,410</span>
+              <span class="info-box-text">Supplier Order</span>
+              <span class="info-box-number"><?php echo isset($jumlah_supplier_order) ? $jumlah_supplier_order : ''; ?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -51,8 +51,8 @@
             <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Sales</span>
-              <span class="info-box-number">760</span>
+              <span class="info-box-text">Products</span>
+              <span class="info-box-number"><?php echo isset($jumlah_product) ? $jumlah_product : ''; ?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -64,8 +64,8 @@
             <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">New Members</span>
-              <span class="info-box-number">2,000</span>
+              <span class="info-box-text">Members</span>
+              <span class="info-box-number"><?php echo isset($jumlah_member) ? $jumlah_member : ''; ?></span>
             </div>
             <!-- /.info-box-content -->
           </div>

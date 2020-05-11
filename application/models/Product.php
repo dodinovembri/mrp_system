@@ -28,5 +28,10 @@
             return $this->db->query('DELETE FROM '.$this->table.' WHERE id = '. $id);           
        }
 
+       public function jumlah()
+       {
+         return $this->db->count_all($this->table);
+       }       
+
     }
 ?>

@@ -33,10 +33,15 @@ class Admin extends CI_Controller {
 
 	public function index()
 	{
+		$data['jumlah_customer_order'] = $this->Cust_order->jumlah();
+		$data['jumlah_supplier_order'] = $this->Supp_order->jumlah();
+		$data['jumlah_product'] = $this->Product->jumlah();
+		$data['jumlah_member'] = $this->User->jumlah();
+
         $this->load->view('templates/admin/header');        
         $this->load->view('templates/admin/head');        
         $this->load->view('templates/admin/sidebar');        
-        $this->load->view('dashboard/index');
+        $this->load->view('dashboard/index', $data);
         $this->load->view('templates/admin/foot');
         $this->load->view('templates/admin/footer');
 	}

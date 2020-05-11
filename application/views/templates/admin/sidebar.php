@@ -27,38 +27,38 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active">
-          <a href="<?php echo base_url('admin') ?>">
+        <li class="<?php if($this->uri->segment(2) == 'index') {echo 'active';} ?>">
+          <a href="<?php echo base_url('admin/index') ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        <li>
+        <li class="<?php if($this->uri->segment(2) == 'cust_order') {echo 'active';} ?>">
           <a href="<?php echo base_url('admin/cust_order') ?>">
             <i class="fa fa-files-o"></i>
             <span>Customers Order</span>            
           </a>         
         </li>
-        <li>
+        <li class="<?php if($this->uri->segment(2) == 'supp_order') {echo 'active';} ?>">
           <a href="<?php echo base_url('admin/supp_order') ?>">
             <i class="fa fa-files-o"></i>
             <span>Suppliers Order</span>            
           </a>         
         </li>        
         <li class="header">MASTER DATA</li>      
-        <li>
+        <li class="<?php if($this->uri->segment(2) == 'product') {echo 'active';} ?>">
           <a href="<?php echo base_url('admin/product') ?>">
             <i class="fa fa-pie-chart"></i>
             <span>Products</span>
           </a>
         </li>         
-        <li>
+        <li class="<?php if($this->uri->segment(2) == 'komposisi') {echo 'active';} ?>">
           <a href="<?php echo base_url('admin/komposisi') ?>">
             <i class="fa fa-pie-chart"></i>
-            <span>Komposisi</span>        
+            <span>Komposisi</span>      
           </a>
         </li>       
         <li class="header">SYSTEM CONFIGURATON</li>        
-        <li class="treeview">
+        <li class="<?php if($this->uri->segment(2) == 'user') {echo 'treeview active';} else {echo 'treeview';} ?>">
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>System</span>
@@ -67,7 +67,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url('admin/user') ?>"><i class="fa fa-circle-o"></i> Users</a></li>
+            <li class="<?php if($this->uri->segment(2) == 'user') {echo 'active';} ?>"><a href="<?php echo base_url('admin/user') ?>"><i class="fa fa-circle-o"></i> Users</a></li>
           </ul>
         </li>      
       </ul>

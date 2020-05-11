@@ -29,5 +29,10 @@
         {
             return $this->db->query('select user.*, role.role_akses as role_akses, role.id as id_role from user join role ON user.id_role = role.id WHERE user.id = '. $id)->row();            
         }
+
+       public function jumlah()
+       {
+         return $this->db->count_all($this->table);
+       }        
     }
 ?>

@@ -40,5 +40,10 @@
           return $this->db->query('SELECT supplier_order.*, komposisi.komposisi_name as komposisi_name, komposisi.id as komposisi_id FROM supplier_order JOIN komposisi ON supplier_order.id_komposisi = komposisi.id')->result();         
        }
 
+       public function jumlah()
+       {
+         return $this->db->count_all($this->table);
+       }       
+
     }
 ?>

@@ -35,5 +35,10 @@
             return $this->db->query('SELECT * FROM '.$this->table. ' WHERE id = ' .$id)->row();                   
        }
 
+       public function jumlah()
+       {
+         return $this->db->count_all($this->table);
+       }
+
     }
 ?>
