@@ -4,12 +4,11 @@
     <section class="content-header">
       <h1>
         Data Tables
-        <small>advanced tables</small>
+        <small></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>        
+        <li class="active">Customer Order</li>
       </ol>
     </section>
 
@@ -19,7 +18,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3><br><br>
+              <h3 class="box-title">Customer Order List</h3><br><br>
                <a href="<?php echo base_url('admin/create_cust_order') ?>"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add New</button></a>
               <br><br><?php if($this->session->flashdata('success')){ ?>
                 <div class="alert alert-success alert-dismissible">
