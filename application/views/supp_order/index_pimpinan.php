@@ -19,8 +19,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3><br><br>
-               <a href="<?php echo base_url('admin/create_cust_order') ?>"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add New</button></a>
+              <h3 class="box-title">Data Table With Full Features</h3>
               <br><br><?php if($this->session->flashdata('success')){ ?>
                 <div class="alert alert-success alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -35,28 +34,24 @@
                 <tr>
                   <th>No</th>
                   <th>Order ID</th>
-                  <th>Nama Customer</th>
+                  <th>Nama Supplier</th>
                   <th>Product</th>
                   <th>Jumlah</th>
                   <th>Status</th>
-                  <th>Created At</th>
-                  <th>Action</th>
+                  <th>Created At</th>                  
                 </tr>
                 </thead>
                 <tbody>
-                <?php $no = 0; foreach ($cust_order as $key => $value) { $no++; ?>
+                <?php $no = 0; foreach ($supp_order as $key => $value) { $no++; ?>
                   <tr>
                     <td><?= $no ?></td>
-                    <td><u><b><a href="<?= base_url('admin/cust_order_detail/'. $value->id) ?>">ORDER-00<?= $value->id ?></a></b></u></td>
-                    <td><?= $value->cust_name ?></td>
-                    <td><?= $value->id_product ?></td>
+                    <td><b>SUPP-ORDER-00<?= $value->id ?></b></td>
+                    <td><?= $value->supplier_name ?></td>
+                    <td><?= $value->komposisi_name ?></td>
                     <td><?= $value->jumlah ?></td>
                     <td><?= $value->status ?></td>
                     <td><?= $value->created_at ?></td>
-                    <td>                      
-                      <a href="<?php echo base_url('admin/edit_cust_order/'. $value->id) ?>"><i class="fa fa-edit"></i></a>                                                        
-                    </td>
-                  </tr>
+                  </tr>                 
                 <?php } ?>                               
               </table>
             </div>

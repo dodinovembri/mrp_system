@@ -30,7 +30,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <form role="form" method="POST" action="<?= base_url('admin/store_update_product_detail/'.$product_detail->id ) ?>">                              
+              <form role="form" method="POST" action="<?= base_url('admin/store_update_product_detail/'.$product_detail->id. '/'. $product_id ) ?>">                              
                 <div class="form-group">
                   <label>Kompoisi</label>
                   <select class="form-control" name="id_komposisi" required>

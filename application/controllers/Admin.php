@@ -387,10 +387,11 @@ class Admin extends CI_Controller {
         $this->load->view('templates/admin/footer');		
 	}		
 
-	public function edit_product_detail($id)
+	public function edit_product_detail($id, $product_id)
 	{
 		$data['product_detail'] = $this->Product_detail->getDataById($id);		
 		$data['komposisi'] = $this->Komposisi->get_data();
+		$data['product_id'] = $product_id;
 		
         $this->load->view('templates/admin/header');        
         $this->load->view('templates/admin/head');        
@@ -400,7 +401,7 @@ class Admin extends CI_Controller {
         $this->load->view('templates/admin/footer');		
 	}
 
-	public function store_update_product_detail($id)
+	public function store_update_product_detail($id, $product_id)
 	{
 		$id_komposisi = $this->input->post('id_komposisi');
 		$jumlah = $this->input->post('jumlah');
@@ -415,7 +416,7 @@ class Admin extends CI_Controller {
 		$insert = $this->Product_detail->update_data($data, $id);
 		$this->session->set_flashdata('success', 'Success update product_detail.');		
 
-		redirect(base_url('admin/product_detail/'. $id));				
+		redirect(base_url('admin/product_detail/'. $product_id));				
 	}
 
 	public function delete_product_detail($id, $product_id)
@@ -559,17 +560,40 @@ class Admin extends CI_Controller {
         $this->load->view('templates/admin/footer');
 	}	
 
-	public function store_edit_supp_order($id)
+	public function store_edit_supp_order($id, $id_product)
 	{
 		$status = $this->input->post('status');
-		
+
 		$data = array(
 		'status' => $status,			
 		'updated_by' => $this->session->set_userdata('nama'),        
 		'updated_at' => date('Y-m-d h:m:s')
 		);
 
+		if ($status == 1) {
+			$data_komposisi = array(
+			'status' => 2, //data sudah di order			
+			'updated_by' => $this->session->set_userdata('nama'),        
+			'updated_at' => date('Y-m-d h:m:s')
+			);
+		}elseif ($status == 2) {
+			$getstockcurrent = $this->Komposisi->getDataById($id_product);
+			$getstockorder = $this->Supp_order->getDataById($id);
+
+			$stock = $getstockcurrent->stock + $getstockorder->jumlah;
+
+			$data_komposisi = array(
+			'status' => 0, //data sudah di order						
+			'stock' => $stock,
+			'updated_by' => $this->session->set_userdata('nama'),        
+			'updated_at' => date('Y-m-d h:m:s')
+			);			
+		}
+
 		$insert = $this->Supp_order->update_data($data, $id);
+		$update = $this->Komposisi->update_data($data_komposisi, $id_product);
+		
+
 		$this->session->set_flashdata('success', 'Success update customer order.');
 		redirect(base_url('admin/supp_order'));				
 	}	

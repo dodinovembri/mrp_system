@@ -37,7 +37,7 @@
 
        public function getJoinKomposisi()
        {
-          return $this->db->query('SELECT supplier_order.*, komposisi.komposisi_name as komposisi_name FROM supplier_order JOIN komposisi ON supplier_order.id_komposisi = komposisi.id')->result();         
+          return $this->db->query('SELECT supplier_order.*, komposisi.komposisi_name as komposisi_name, komposisi.id as komposisi_id FROM supplier_order JOIN komposisi ON supplier_order.id_komposisi = komposisi.id')->result();         
        }
 
     }

@@ -128,4 +128,34 @@ class Kepala_gudang extends CI_Controller {
         $this->load->view('templates/kepala_gudang/footer');		
 	}
 
+	public function store_supp_order($id)
+	{
+		$getdata = $this->Komposisi->getDataById($id);
+
+		$supplier_name = $this->input->post('supplier_name');
+		$telp = $this->input->post('telp');		
+		$description = $this->input->post('description');		
+
+		$data = array(
+		'supplier_name' => $supplier_name,
+		'telp' => $telp,			
+		'description' => $description,			
+		'id_komposisi' => $getdata->id,			
+		'jumlah' => $getdata->eoq,			
+		'created_by' => $this->session->userdata('nama'),        
+		'created_at' => date('Y-m-d h:m:s')
+		);
+
+		$data_komposisi = array(
+		'status' => 1, //sedang order			
+		'updated_by' => $this->session->userdata('nama'),        
+		'updated_at' => date('Y-m-d h:m:s')
+		);		
+
+		$insert = $this->Supp_order->input_data($data);
+		$insert = $this->Komposisi->update_data($data_komposisi, $id);
+
+		$this->session->set_flashdata('success', 'Success add new Order.');
+		redirect(base_url('kepala_gudang/stock'));			
+	}
 }

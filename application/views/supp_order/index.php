@@ -28,13 +28,14 @@
               <?php } ?>               
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
+            <div class="box-body" style="overflow-x: scroll;">              
+              <table id="example1" class="table table-responsive table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>No</th>
                   <th>Order ID</th>
                   <th>Nama Supplier</th>
+                  <th>Telp</th>
                   <th>Product</th>
                   <th>Jumlah</th>
                   <th>Status</th>
@@ -46,14 +47,28 @@
                 <?php $no = 0; foreach ($supp_order as $key => $value) { $no++; ?>
                   <tr>
                     <td><?= $no ?></td>
-                    <td><u><b><a href="#">SUPP-ORDER-00<?= $value->id ?></a></b></u></td>
+                    <td><b>SUPP-ORDER-00<?= $value->id ?></b></td>
                     <td><?= $value->supplier_name ?></td>
+                    <td><a href="tel:<?php echo $value->telp ?>"><?= $value->telp ?></a></td>
                     <td><?= $value->komposisi_name ?></td>
-                    <td><?= $value->jumlah ?></td>
-                    <td><?= $value->status ?></td>
+                    <td><?= $value->jumlah ?></td>                        
+                    <td>
+                      <?php if ($value->status == 0) { ?>
+                        <small class="label label-danger"><i class="fa fa-clock-o"></i> Need to Order</small> 
+                      <?php } elseif ($value->status == 1) { ?>
+                        <small class="label label-info"><i class="fa fa-clock-o"></i> Already Ordered</small> 
+                      <?php }else{ ?>
+                        <small class="label label-info"><i class="fa fa-clock-o"></i> Completed</small> 
+                      <?php } ?>
+                    </td>
                     <td><?= $value->created_at ?></td>
-                    <td>                      
-                      <a data-toggle="modal" data-target="#modal-danger-<?php echo $value->id ?>" href="javascript::"><i class="fa fa-edit"></i></a>                                                        
+                    <td>  
+                      <?php if ($value->status != 2) { ?>
+                        <a data-toggle="modal" data-target="#modal-danger-<?php echo $value->id ?>" href="javascript::"><i class="fa fa-edit"></i></a>
+                      <?php }else{ ?>
+                        <a href="javascript::"><i class="fa fa-edit"></i></a>
+                      <?php } ?>                    
+                                                                              
                     </td>
                   </tr>
 
@@ -66,7 +81,7 @@
                           <h4 class="modal-title">Update Status Order</h4>
                         </div>
                         <div class="modal-body">
-                          <form method="post" action="<?php echo base_url('admin/store_edit_supp_order/'. $value->id)  ?>">
+                          <form method="post" action="<?php echo base_url('admin/store_edit_supp_order/'. $value->id.'/'. $value->komposisi_id)  ?>">
                           <div class="form-group">
                             <label>Status</label>
                             <select class="form-control" name="status" required>
@@ -91,7 +106,7 @@
                     <!-- /.modal-dialog -->
                   </div>                  
                 <?php } ?>                               
-              </table>
+              </table>                              
             </div>
             <!-- /.box-body -->
           </div>

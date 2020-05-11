@@ -29,7 +29,7 @@
               <?php } ?>               
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body" style="overflow-x: scroll;">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -49,7 +49,7 @@
                     <td><?= $value->created_at ?></td>
                     <td>
                       <a href="<?php echo base_url('admin/detail_product_detail/'. $value->id) ?>"><i class="fa  fa-search"></i></a> - 
-                      <a href="<?php echo base_url('admin/edit_product_detail/'. $value->id) ?>"><i class="fa fa-edit"></i></a> -                                                         
+                      <a href="<?php echo base_url('admin/edit_product_detail/'. $value->id.'/'.$product->id) ?>"><i class="fa fa-edit"></i></a> -                                                         
                       <a data-toggle="modal" data-target="#modal-danger-<?php echo $value->id ?>" href="javascript::"><i class="fa  fa-trash-o"></i></a>
                     </td>
                   </tr>

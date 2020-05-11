@@ -28,7 +28,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active">
-          <a href="<?php echo base_url('pimpinan') ?>">
+          <a href="<?php echo base_url('kepala_gudang') ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>

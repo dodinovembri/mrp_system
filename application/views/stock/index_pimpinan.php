@@ -1,3 +1,4 @@
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -32,26 +33,36 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>No</th>
-                  <th>Order ID</th>
-                  <th>Nama Supplier</th>
-                  <th>Product</th>
-                  <th>Jumlah</th>
+                  <th>No</th>                  
+                  <th>Komposisi</th>
                   <th>Status</th>
-                  <th>Created At</th>
+                  <th>Stock</th>                  
+                  <th>Biaya Pemesanan</th>                  
+                  <th>Biaya Penyimpanan</th>                  
+                  <th>EOQ</th>                  
+                  <th>Frekuensi Pemesanan</th>                  
+                  <th>ROP</th>                  
+                  <th>SS</th>                                                      
                 </tr>
                 </thead>
                 <tbody>
-                <?php $no = 0; foreach ($supp_order as $key => $value) { $no++; ?>
+                <?php $no = 0; foreach ($stock as $key => $value) { $no++; ?>
                   <tr>
-                    <td><?= $no ?></td>
-                    <td><b>SUPP-ORDER-00<?= $value->id ?></b></td>
-                    <td><?= $value->supplier_name ?></td>
-                    <td><?= $value->komposisi_name ?></td>
-                    <td><?= $value->jumlah ?></td>
-                    <td><?= $value->status ?></td>
-                    <td><?= $value->created_at ?></td>
-                  </tr>                  
+                    <td><?= $no ?></td>                    
+                    <td><b><?= $value->komposisi_name ?></b></a></td>
+                    <td><?php if ($value->stock <= $value->eoq) { ?>
+                      <small class="label label-danger"><i class="fa fa-clock-o"></i> Your's Stock Need to Order</small>
+                    <?php } else{ ?>
+                      <small class="label label-info"><i class="fa fa-clock-o"></i> Your's Stock is safe</small>
+                    <?php } ?></td>
+                    <td><?= $value->stock ?></td>                    
+                    <td><?= $value->biaya_pemesanan ?></td>                    
+                    <td><?= $value->biaya_penyimpanan ?></td>                    
+                    <td><?= $value->eoq ?></td>                    
+                    <td><?= $value->frekuensi_pemesanan ?></td>                    
+                    <td><?= $value->rop ?></td>                    
+                    <td><?= $value->ss ?></td>                                                          
+                  </tr>    
                 <?php } ?>                               
               </table>
             </div>
