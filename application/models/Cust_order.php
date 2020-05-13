@@ -40,5 +40,10 @@
          return $this->db->count_all($this->table);
        }
 
+       public function cust_order_join_product()
+       {
+          return $this->db->query('SELECT customer_order.*, product.product_name as product_name FROM customer_order JOIN product ON customer_order.id_product = product.id')->result();
+       }
+
     }
 ?>

@@ -2,14 +2,13 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Data Tables
-        <small>advanced tables</small>
+      <h1>        
+        <small></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="<?php echo base_url('admin/index') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?php echo base_url('admin/product') ?>">Product List</a></li>
+        <li class="active">Edit Product</li>
       </ol>
     </section>
 
@@ -34,7 +33,11 @@
                 <div class="form-group">
                   <label>Nama Product</label>
                   <input type="text" class="form-control" name="product_name" value="<?php echo $product->product_name ?>" placeholder="Enter ..." required>
-                </div>   
+                </div>
+                <div class="form-group">
+                  <label>Price</label>
+                  <input type="number" min="0" class="form-control" name="price" value="<?php echo $product->price ?>" placeholder="Enter ..." required>
+                </div>                   
                 <div class="form-group">
                   <label>Description</label>
                   <textarea class="form-control" rows="6" name="description" ><?= $product->description  ?></textarea>

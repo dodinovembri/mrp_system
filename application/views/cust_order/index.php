@@ -2,12 +2,9 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Data Tables
-        <small></small>
-      </h1>
+      <h1><small></small></h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>        
+        <li><a href="<?php echo base_url('admin/index') ?>"><i class="fa fa-dashboard"></i> Home</a></li>        
         <li class="active">Customer Order</li>
       </ol>
     </section>
@@ -37,9 +34,9 @@
                   <th>Nama Customer</th>
                   <th>Product</th>
                   <th>Jumlah</th>
-                  <th>Status</th>
-                  <th>Created At</th>
-                  <th>Action</th>
+                  <th>Satuan</th>
+                  <th>Price</th>                
+                  <th>Created At</th>                  
                 </tr>
                 </thead>
                 <tbody>
@@ -48,13 +45,11 @@
                     <td><?= $no ?></td>
                     <td><u><b><a href="<?= base_url('admin/cust_order_detail/'. $value->id) ?>">ORDER-00<?= $value->id ?></a></b></u></td>
                     <td><?= $value->cust_name ?></td>
-                    <td><?= $value->id_product ?></td>
+                    <td><?= $value->product_name ?></td>
                     <td><?= $value->jumlah ?></td>
-                    <td><?= $value->status ?></td>
+                    <td>buah</td>
+                    <td>Rp. <?= number_format($value->price, 2,',','.') ?></td>                    
                     <td><?= $value->created_at ?></td>
-                    <td>                      
-                      <a href="<?php echo base_url('admin/edit_cust_order/'. $value->id) ?>"><i class="fa fa-edit"></i></a>                                                        
-                    </td>
                   </tr>
                 <?php } ?>                               
               </table>

@@ -4,7 +4,7 @@
     <section class="content-header">
       <h1>
         Dashboard
-        <small>Version 2.0</small>
+        <small>Version 1.0</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -18,7 +18,7 @@
       <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+            <span class="info-box-icon bg-aqua"><i class="fa fa-reorder"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Customer Order</span>
@@ -31,7 +31,7 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+            <span class="info-box-icon bg-red"><i class="fa fa-th-list"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Supplier Order</span>
@@ -48,7 +48,7 @@
 
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+            <span class="info-box-icon bg-green"><i class="fa fa-gg-circle"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Products</span>

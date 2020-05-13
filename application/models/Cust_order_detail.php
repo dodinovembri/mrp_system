@@ -31,6 +31,11 @@
        public function getDetailOrder($id)
        {
           return $this->db->query('SELECT customer_order_detail.*, komposisi.komposisi_name as komposisi_name, komposisi.satuan as satuan FROM '.$this->table.' JOIN komposisi ON customer_order_detail.id_komposisi = komposisi.id WHERE customer_order_detail.id_customer_order = '. $id)->result();
-       }       
+       }   
+
+       public function delete_by_id($id)
+       {
+            return $this->db->query('DELETE FROM '.$this->table.' WHERE id_product = '. $id);                     
+       }    
     }
 ?>

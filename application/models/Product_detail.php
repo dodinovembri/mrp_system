@@ -38,5 +38,10 @@
             return $this->db->query('DELETE FROM '.$this->table.' WHERE id = '. $id);           
        }
 
+       public function pd_join_komposisi($id)
+       {
+         return $this->db->query('SELECT product_detail.*, komposisi.komposisi_name AS komposisi_name FROM product_detail JOIN komposisi ON product_detail.id_komposisi = komposisi.id')->row();
+       }
+
     }
 ?>

@@ -3,13 +3,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
-        <small>advanced tables</small>
+        <small></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="<?php echo base_url('admin/index') ?>"><i class="fa fa-dashboard"></i> Home</a></li>        
+        <li><a href="<?php echo base_url('admin/user') ?>"> User</a></li>        
+        <li class="active">Create User</li>
       </ol>
     </section>
 
@@ -20,7 +19,7 @@
           <!-- general form elements disabled -->
           <div class="box box-warning">
             <div class="box-header with-border">
-              <h3 class="box-title">General Elements</h3><br><br>
+              <h3 class="box-title">Detail User</h3><br><br>
               <?php if($this->session->flashdata('warning')){ ?>
                 <div class="alert alert-warning alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -33,11 +32,11 @@
               <form role="form" method="POST" action="<?= base_url('admin/store_user') ?>">                              
                 <div class="form-group">
                   <label>Username</label>
-                  <input type="text" class="form-control" name="username" value="<?php echo $user->username ?>" placeholder="Enter ..." required>
+                  <input type="text" class="form-control" name="username" value="<?php echo $user->username ?>" placeholder="Enter ..." readonly>
                 </div>                
                 <div class="form-group">
                   <label>Role Akses</label>
-                  <input type="text" class="form-control" name="role" value="<?php echo $user->role_akses ?>" placeholder="Enter ..." required>
+                  <input type="text" class="form-control" name="role" value="<?php echo $user->role_akses ?>" placeholder="Enter ..." readonly>
                 </div>
                 <br>                                                                                                                         
 

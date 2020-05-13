@@ -3,13 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
-        <small>advanced tables</small>
+        <small></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="<?php echo base_url('admin/index') ?>"><i class="fa fa-dashboard"></i> Home</a></li>        
+        <li class="active">Product List</li>
       </ol>
     </section>
 
@@ -19,7 +17,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3><br><br>
+              <h3 class="box-title">Product List</h3><br><br>
                <a href="<?php echo base_url('admin/create_product') ?>"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add New</button></a>
               <br><br><?php if($this->session->flashdata('success')){ ?>
                 <div class="alert alert-success alert-dismissible">
@@ -35,6 +33,7 @@
                 <tr>
                   <th>No</th>
                   <th>Nama Product</th>
+                  <th>Price</th>
                   <th>Deskripsi</th>
                   <th>Created At</th>
                   <th>Action</th>
@@ -45,6 +44,7 @@
                   <tr>
                     <td><?= $no ?></td>
                     <td><u><b><a href="<?= base_url('admin/product_detail/'. $value->id) ?>"><?= $value->product_name ?></a></b></u></td>
+                    <td>Rp. <?= number_format($value->price, 2,',','.') ?></td>
                     <td><?= $value->description ?></td>
                     <td><?= $value->created_at ?></td>
                     <td>

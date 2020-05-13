@@ -313,10 +313,12 @@ class Admin extends CI_Controller {
 	public function store_update_product($id)
 	{
 		$product_name = $this->input->post('product_name');
+		$price = $this->input->post('price');
 		$description = $this->input->post('description');
 
 		$data = array(
 		'product_name' => $product_name,
+		'price' => $price,		
 		'description' => $description,		
 		'updated_by' => $this->session->set_userdata('nama'),        
 		'updated_at' => date('Y-m-d h:m:s')
@@ -364,13 +366,13 @@ class Admin extends CI_Controller {
 	public function store_product_detail($id)
 	{
 		$id_komposisi = $this->input->post('id_komposisi');
-		$jumlah = $this->input->post('jumlah');		
+		$jumlah = $this->input->post('jumlah');					
 
 		$data = array(
 		'id_product' =>	$id,
 		'id_komposisi' => $id_komposisi,
-		'jumlah' => $jumlah,			
-		'created_by' => $this->session->set_userdata('nama'),        
+		'jumlah' => $jumlah,					
+		'created_by' => print $this->session->set_userdata('nama'),        
 		'created_at' => date('Y-m-d h:m:s')
 		);
 
@@ -380,9 +382,10 @@ class Admin extends CI_Controller {
 		
 	}
 
-	public function detail_product_detail($id)
+	public function detail_product_detail($id, $product_id)
 	{
 		$data['product_detail'] = $this->Product_detail->getDataById($id);
+		$data['id_product'] = $product_id;		
 
         $this->load->view('templates/admin/header');        
         $this->load->view('templates/admin/head');        
@@ -394,8 +397,8 @@ class Admin extends CI_Controller {
 
 	public function edit_product_detail($id, $product_id)
 	{
-		$data['product_detail'] = $this->Product_detail->getDataById($id);		
-		$data['komposisi'] = $this->Komposisi->get_data();
+		$data['product_detail'] = $this->Product_detail->pd_join_komposisi($id);		
+		// $data['komposisi'] = $this->Komposisi->get_data();
 		$data['product_id'] = $product_id;
 		
         $this->load->view('templates/admin/header');        
@@ -408,13 +411,13 @@ class Admin extends CI_Controller {
 
 	public function store_update_product_detail($id, $product_id)
 	{
-		$id_komposisi = $this->input->post('id_komposisi');
+		// $id_komposisi = $this->input->post('id_komposisi');
 		$jumlah = $this->input->post('jumlah');
 
 		$data = array(
-		'id_komposisi' => $id_komposisi,
+		// 'id_komposisi' => $id_komposisi,
 		'jumlah' => $jumlah,		
-		'updated_by' => $this->session->set_userdata('nama'),        
+		'updated_by' => print $this->session->set_userdata('nama'),        
 		'updated_at' => date('Y-m-d h:m:s')
 		);
 
@@ -434,7 +437,7 @@ class Admin extends CI_Controller {
 	// for cust_order
 	public function cust_order()
 	{
-		$data['cust_order'] = $this->Cust_order->get_data();		
+		$data['cust_order'] = $this->Cust_order->cust_order_join_product();		
 
         $this->load->view('templates/admin/header');        
         $this->load->view('templates/admin/head');        
@@ -462,19 +465,24 @@ class Admin extends CI_Controller {
 		$id_product = $this->input->post('id_product');		
 		$jumlah = $this->input->post('jumlah');		
 
+		$price_db = $this->Product->getDataById($id_product);
+		$price_total = $jumlah * $price_db->price;		
+
 		$data = array(
 		'cust_name' => $cust_name,
 		'id_product' => $id_product,			
-		'jumlah' => $jumlah,			
+		'jumlah' => $jumlah,	
+		'price' => $price_total,		
 		'created_by' => $this->session->userdata('nama'),        
 		'created_at' => date('Y-m-d h:m:s')
 		);
-		$insert = $this->Cust_order->input_data($data);
+		$insert = $this->Cust_order->input_data($data);		
 
 		$get_komposisi = $this->Product_detail->getDataByIdAllDetail($id_product);
 		foreach ($get_komposisi as $key => $value) {
 			$getstockcurrent = $this->Komposisi->getDataById($value->id_komposisi);
 			if ($getstockcurrent->stock < ($jumlah * $value->jumlah)) {
+				$this->Cust_order_detail->delete_by_id($insert);				
 				$this->Cust_order->delete($insert);
 				$this->session->set_flashdata('success', 'Product quantity is not enough.');
 				redirect(base_url('admin/cust_order'));	
@@ -490,8 +498,8 @@ class Admin extends CI_Controller {
 					'id_customer_order' => $insert,
 					'id_product' => $id_product,			
 					'id_komposisi' => $value->id_komposisi,			
-					'jumlah' => $jumlah * $value->jumlah,			
-					'created_by' => $this->session->userdata('nama'),        
+					'jumlah' => $jumlah * $value->jumlah,								
+					'created_by' => print $this->session->userdata('nama'),        
 					'created_at' => date('Y-m-d h:m:s')
 				);
 			}							

@@ -3,13 +3,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
-        <small>advanced tables</small>
+        <small></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="<?php echo base_url('admin/index') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?php echo base_url('admin/product') ?>">Product List</a></li>
+        <li class="active">Product Komposisi</li>
       </ol>
     </section>
 
@@ -48,7 +47,7 @@
                     <td><?= $value->jumlah ?></td>
                     <td><?= $value->created_at ?></td>
                     <td>
-                      <a href="<?php echo base_url('admin/detail_product_detail/'. $value->id) ?>"><i class="fa  fa-search"></i></a> - 
+                      <a href="<?php echo base_url('admin/detail_product_detail/'. $value->id.'/'.$product->id) ?>"><i class="fa  fa-search"></i></a> - 
                       <a href="<?php echo base_url('admin/edit_product_detail/'. $value->id.'/'.$product->id) ?>"><i class="fa fa-edit"></i></a> -                                                         
                       <a data-toggle="modal" data-target="#modal-danger-<?php echo $value->id ?>" href="javascript::"><i class="fa  fa-trash-o"></i></a>
                     </td>
