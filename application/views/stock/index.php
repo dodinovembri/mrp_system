@@ -59,7 +59,7 @@
                           <a data-toggle="modal" data-target="#modal-primary-<?php echo $value->id ?>" href="javascript::">
                           <small class="label label-danger"><i class="fa fa-clock-o"></i> Your's Stock Need to Order</small></a>
                         <?php } else{ ?>
-                          <small class="label label-info"><i class="fa fa-clock-o"></i> Your's Stock is safe</small>
+                          <small class="label label-danger"><i class="fa fa-clock-o"></i> Update your's stock</small>
                         <?php } ?>
                       <?php } ?>                      
                     </td>
