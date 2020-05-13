@@ -272,10 +272,12 @@ class Admin extends CI_Controller {
 	{
 		$product_name = $this->input->post('product_name');
 		$description = $this->input->post('description');		
+		$price = $this->input->post('price');		
 
 		$data = array(
 		'product_name' => $product_name,
 		'description' => $description,			
+		'price' => $price,			
 		'created_by' => $this->session->set_userdata('nama'),        
 		'created_at' => date('Y-m-d h:m:s')
 		);

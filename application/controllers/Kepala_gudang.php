@@ -163,4 +163,17 @@ class Kepala_gudang extends CI_Controller {
 		$this->session->set_flashdata('success', 'Success add new Order.');
 		redirect(base_url('kepala_gudang/stock'));			
 	}
+
+	public function edit_user()
+	{				
+		$username = $this->session->userdata('nama');
+		$data['user'] = $this->User->getDataByNama($username);
+
+        $this->load->view('templates/kepala_gudang/header');        
+        $this->load->view('templates/kepala_gudang/head');        
+        $this->load->view('templates/kepala_gudang/sidebar');        
+        $this->load->view('user/edit_user_kg', $data);
+        $this->load->view('templates/kepala_gudang/foot');
+        $this->load->view('templates/kepala_gudang/footer');
+	}
 }
