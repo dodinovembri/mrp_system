@@ -30,15 +30,20 @@ class Pimpinan extends CI_Controller {
 				}
 			}
 		}
-		$this->load->model(array('User', 'Komposisi', 'Product', 'Product_detail', 'Cust_order', 'Cust_order_detail', 'Supp_order'));
+		$this->load->model(array('User', 'Komposisi', 'Product', 'Product_detail', 'Cust_order', 'Cust_order_detail', 'Supp_order', 'Cust_order'));
 	}
 
 	public function index()
 	{
+		$data['jumlah_customer_order'] = $this->Cust_order->jumlah();
+		$data['jumlah_supplier_order'] = $this->Supp_order->jumlah();
+		$data['jumlah_product'] = $this->Product->jumlah();
+		$data['jumlah_member'] = $this->User->jumlah();
+
         $this->load->view('templates/pimpinan/header');        
         $this->load->view('templates/pimpinan/head');        
         $this->load->view('templates/pimpinan/sidebar');        
-        $this->load->view('dashboard/index');
+        $this->load->view('dashboard/index', $data);
         $this->load->view('templates/pimpinan/foot');
         $this->load->view('templates/pimpinan/footer');
 	}
@@ -46,7 +51,7 @@ class Pimpinan extends CI_Controller {
 	// for cust_order
 	public function cust_order()
 	{
-		$data['cust_order'] = $this->Cust_order->get_data();		
+		$data['cust_order'] = $this->Cust_order->cust_order_join_product();		
 
         $this->load->view('templates/pimpinan/header');        
         $this->load->view('templates/pimpinan/head');        

@@ -4,13 +4,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
-        <small>advanced tables</small>
+        <small></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="<?php echo base_url('pimpinan/index') ?>"><i class="fa fa-dashboard"></i> Home</a></li>        
+        <li class="active">Stock Control</li>
       </ol>
     </section>
 
@@ -20,7 +18,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3>
+              <h3 class="box-title">Stock Control List</h3>
               <br><br><?php if($this->session->flashdata('success')){ ?>
                 <div class="alert alert-success alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -56,8 +54,8 @@
                       <small class="label label-info"><i class="fa fa-clock-o"></i> Your's Stock is safe</small>
                     <?php } ?></td>
                     <td><?= $value->stock ?></td>                    
-                    <td><?= $value->biaya_pemesanan ?></td>                    
-                    <td><?= $value->biaya_penyimpanan ?></td>                    
+                    <td>Rp. <?= number_format($value->biaya_pemesanan, 2,',','.') ?></td>                    
+                    <td>Rp. <?= number_format($value->biaya_penyimpanan, 2,',','.') ?></td>                    
                     <td><?= $value->eoq ?></td>                    
                     <td><?= $value->frekuensi_pemesanan ?></td>                    
                     <td><?= $value->rop ?></td>                    

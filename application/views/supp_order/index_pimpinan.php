@@ -3,13 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
-        <small>advanced tables</small>
+        <small></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="<?php echo base_url('pimpinan/index') ?>"><i class="fa fa-dashboard"></i> Home</a></li>      
+        <li class="active">Supplier Order</li>
       </ol>
     </section>
 
@@ -19,7 +17,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3>
+              <h3 class="box-title">Supplier Order List</h3>
               <br><br><?php if($this->session->flashdata('success')){ ?>
                 <div class="alert alert-success alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -49,7 +47,15 @@
                     <td><?= $value->supplier_name ?></td>
                     <td><?= $value->komposisi_name ?></td>
                     <td><?= $value->jumlah ?></td>
-                    <td><?= $value->status ?></td>
+                    <td>
+                      <?php if ($value->status == 0) { ?>
+                        <small class="label label-danger"><i class="fa fa-clock-o"></i> Need to Order</small> 
+                      <?php } elseif ($value->status == 1) { ?>
+                        <small class="label label-info"><i class="fa fa-clock-o"></i> Already Ordered</small> 
+                      <?php }else{ ?>
+                        <small class="label label-info"><i class="fa fa-clock-o"></i> Completed</small> 
+                      <?php } ?>
+                    </td>
                     <td><?= $value->created_at ?></td>
                   </tr>                 
                 <?php } ?>                               

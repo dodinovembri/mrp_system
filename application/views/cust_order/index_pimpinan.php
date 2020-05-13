@@ -3,13 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
-        <small>advanced tables</small>
+        <small></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="<?php echo base_url('pimpinan/index') ?>"><i class="fa fa-dashboard"></i> Home</a></li>        
+        <li class="active">Customer Order</li>
       </ol>
     </section>
 
@@ -19,7 +17,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3>
+              <h3 class="box-title">Customer Order List</h3>
               <br><br><?php if($this->session->flashdata('success')){ ?>
                 <div class="alert alert-success alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -36,8 +34,9 @@
                   <th>Order ID</th>
                   <th>Nama Customer</th>
                   <th>Product</th>
-                  <th>Jumlah</th>
-                  <th>Status</th>
+                  <th>Jumlah</th>    
+                  <th>Satuan</th>
+                  <th>Price</th>                                 
                   <th>Created At</th>                  
                 </tr>
                 </thead>
@@ -45,11 +44,12 @@
                 <?php $no = 0; foreach ($cust_order as $key => $value) { $no++; ?>
                   <tr>
                     <td><?= $no ?></td>
-                    <td><u><b><a href="<?= base_url('pimpinan/cust_order_detail/'. $value->id) ?>">ORDER-00<?= $value->id ?></a></b></u></td>
+                    <td><b>ORDER-00<?= $value->id ?></b></td>
                     <td><?= $value->cust_name ?></td>
-                    <td><?= $value->id_product ?></td>
-                    <td><?= $value->jumlah ?></td>
-                    <td><?= $value->status ?></td>
+                    <td><?= $value->product_name ?></td>
+                    <td><?= $value->jumlah ?></td>    
+                    <td>buah</td>
+                    <td>Rp. <?= number_format($value->price, 2,',','.') ?></td>                                        
                     <td><?= $value->created_at ?></td>
                   </tr>
                 <?php } ?>                               

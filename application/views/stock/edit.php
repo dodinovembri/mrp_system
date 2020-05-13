@@ -3,13 +3,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Tables
-        <small>advanced tables</small>
+        <small></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
+        <li><a href="<?php echo base_url('kepala_gudang/index') ?>"><i class="fa fa-dashboard"></i> Home</a></li>        
+        <li><a href="<?php echo base_url('kepala_gudang/stock') ?>">Stock Control</a></li>
+        <li class="active">Edit Stock</li>
       </ol>
     </section>
 
@@ -69,7 +68,7 @@
                 </div>                                                                                                                                                                                                                                                           
                 <br>
                 <button type="submit" class="btn btn-success">Save</button>
-                <button type="button" class="btn btn-danger">Cancel</button>
+                <a href="<?php echo base_url('kepala_gudang/stock') ?>"><button type="button" class="btn btn-danger">Cancel</button></a>
 
               </form>
             </div>
