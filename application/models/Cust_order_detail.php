@@ -35,7 +35,7 @@
 
        public function delete_by_id($id)
        {
-            return $this->db->query('DELETE FROM '.$this->table.' WHERE id_product = '. $id);                     
+            return $this->db->query('DELETE FROM '.$this->table.' WHERE id_customer_order = '. $id);                     
        }    
     }
 ?>
