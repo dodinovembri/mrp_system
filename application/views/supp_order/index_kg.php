@@ -47,7 +47,15 @@
                     <td><?= $value->supplier_name ?></td>
                     <td><?= $value->komposisi_name ?></td>
                     <td><?= $value->jumlah ?></td>
-                    <td><?= $value->status ?></td>
+                    <td>
+                      <?php if ($value->status == 0) { ?>
+                        <small class="label label-danger"><i class="fa fa-clock-o"></i> Need to Order</small> 
+                      <?php } elseif ($value->status == 1) { ?>
+                        <small class="label label-info"><i class="fa fa-clock-o"></i> Already Ordered</small> 
+                      <?php }else{ ?>
+                        <small class="label label-info"><i class="fa fa-clock-o"></i> Completed</small> 
+                      <?php } ?>
+                    </td>
                     <td><?= $value->created_at ?></td>
                   </tr>                  
                 <?php } ?>                               
