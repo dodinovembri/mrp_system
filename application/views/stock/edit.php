@@ -43,28 +43,28 @@
                   <input type="text" class="form-control" name="satuan" value="<?php echo $stock->satuan ?>" placeholder="Enter ..." readonly>
                 </div>  
                 <div class="form-group">
-                  <label>Jumlah</label>
-                  <input type="text" class="form-control" name="jumlah" value="<?php echo $stock->jumlah ?>" placeholder="Enter ..." required>
+                  <label>Jumlah Kebutuhan Per Bulan</label>
+                  <input type="number" min="0" class="form-control" name="jumlah" value="<?php echo $stock->jumlah ?>" placeholder="Enter ..." required>
                 </div>                  
                 <div class="form-group">
-                  <label>Harga</label>
+                  <label>Harga Barang Yang Dibeli</label>
                   <input type="text" class="form-control" name="harga" value="<?php echo $stock->harga ?>" placeholder="Enter ..." required>
                 </div>                                  
                 <div class="form-group">
-                  <label>Biaya Pemesanan</label>
+                  <label>Biaya Pemesanan Barang</label>
                   <input type="text" class="form-control" name="biaya_pemesanan" value="<?php echo $stock->biaya_pemesanan ?>" placeholder="Enter ..." required>
                 </div> 
                 <div class="form-group">
-                  <label>Biaya Penyimpanan</label>
+                  <label>Biaya Penyimpanan Barang (Jumlah % an dari harga)</label>
                   <input type="text" class="form-control" name="biaya_penyimpanan" value="<?php echo $stock->biaya_penyimpanan ?>" placeholder="Enter ..." required>
                 </div> 
                 <div class="form-group">
-                  <label>Lead Time</label>
+                  <label>Lead Time (Waktu tunggu mulai pemesanan sampai barang datang)</label>
                   <input type="number" min="1" class="form-control" name="lt" value="<?php echo $stock->lt ?>" placeholder="Enter ..." required>
                 </div> 
                 <div class="form-group">
-                  <label>Service Level</label>
-                  <input type="number" min="1" class="form-control" name="sl" value="<?php echo $stock->sl ?>" placeholder="Enter ..." required>
+                  <label>Service Level (probabilitas bahwa tidak akan terjadi out of stock) </label>
+                  <input type="text" class="form-control" name="sl" value="<?php echo isset($stock->sl) ? $stock->sl : '2.05' ?>" placeholder="Enter ..." required>
                 </div>                                                                                                                                                                                                                                                           
                 <br>
                 <button type="submit" class="btn btn-success">Save</button>

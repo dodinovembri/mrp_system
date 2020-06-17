@@ -86,15 +86,15 @@ class Kepala_gudang extends CI_Controller {
 		$eoq_blm = (2 * $biaya_pemesanan * $jumlah)/$biaya_penyimpanan;		
 		$eoq = sqrt($eoq_blm);
 		$frekuensi_pemesanan = $jumlah/$eoq;
-		$rop = ($jumlah/365) * $lt;
-		$jml_pemakaian_perhari = $jumlah/365;
+		$rop = ($jumlah/30) * $lt;
+		$jml_pemakaian_perhari = $jumlah/30;
 		$ss = $sl * $jml_pemakaian_perhari * $lt;					
 
 		$data = array(
 		'jumlah' => $jumlah,
 		'harga' => $harga,
 		'biaya_pemesanan' => $biaya_pemesanan,
-		'biaya_penyimpanan' => $biaya_penyimpanan,		
+		'biaya_penyimpanan' => $biaya_penyimpanan_blm,		
 		'lt' => $lt,		
 		'sl' => $sl,		
 		'eoq' => $eoq,				
@@ -163,6 +163,37 @@ class Kepala_gudang extends CI_Controller {
 		$this->session->set_flashdata('success', 'Success add new Order.');
 		redirect(base_url('kepala_gudang/stock'));			
 	}
+
+	public function store_supp_order_ss($id)
+	{
+		$getdata = $this->Komposisi->getDataById($id);
+
+		$supplier_name = $this->input->post('supplier_name');
+		$telp = $this->input->post('telp');		
+		$description = $this->input->post('description');		
+
+		$data = array(
+		'supplier_name' => $supplier_name,
+		'telp' => $telp,			
+		'description' => $description,			
+		'id_komposisi' => $getdata->id,			
+		'jumlah' => $getdata->ss,			
+		'created_by' => $this->session->userdata('nama'),        
+		'created_at' => date('Y-m-d h:m:s')
+		);
+
+		$data_komposisi = array(
+		'status' => 1, //sedang order			
+		'updated_by' => $this->session->userdata('nama'),        
+		'updated_at' => date('Y-m-d h:m:s')
+		);		
+
+		$insert = $this->Supp_order->input_data($data);
+		$insert = $this->Komposisi->update_data($data_komposisi, $id);
+
+		$this->session->set_flashdata('success', 'Success add new Order.');
+		redirect(base_url('kepala_gudang/stock'));			
+	}	
 
 	public function edit_user()
 	{				

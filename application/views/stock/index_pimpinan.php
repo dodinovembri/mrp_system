@@ -48,14 +48,26 @@
                   <tr>
                     <td><?= $no ?></td>                    
                     <td><b><?= $value->komposisi_name ?></b></a></td>
-                    <td><?php if ($value->stock <= $value->eoq) { ?>
-                      <small class="label label-danger"><i class="fa fa-clock-o"></i> Your's Stock Need to Order</small>
-                    <?php } else{ ?>
-                      <small class="label label-info"><i class="fa fa-clock-o"></i> Your's Stock is safe</small>
-                    <?php } ?></td>
+                    <td>
+                      <?php if ($value->status == 1) { ?>
+                        <small class="label label-info"><i class="fa fa-clock-o"></i> In Order</small>  
+                      <?php }elseif($value->status == 2){ ?>
+                        <small class="label label-info"><i class="fa fa-clock-o"></i> Already ordered </small>                       
+                      <?php }else{ ?>
+                        <?php if ($value->stock <= $value->rop) { ?>                      
+                          <small class="label label-danger"><i class="fa fa-clock-o"></i> Your's Stock Need to Order</small>
+                        <?php } elseif($value->stock <= $value->ss){ ?>
+                          <small class="label label-warning"><i class="fa fa-clock-o"></i> For Safety Stock, Order Now!</small>                         
+                        <?php }elseif(!isset($value->status)){ ?>
+                          <small class="label label-danger"><i class="fa fa-clock-o"></i> Update your's stock</small>
+                        <?php }else{ ?>
+                          <small class="label label-info"><i class="fa fa-clock-o"></i> Your's stock is safe</small>
+                        <?php } ?>
+                      <?php } ?>                      
+                    </td>
                     <td><?= $value->stock ?></td>                    
                     <td>Rp. <?= number_format($value->biaya_pemesanan, 2,',','.') ?></td>                    
-                    <td>Rp. <?= number_format($value->biaya_penyimpanan, 2,',','.') ?></td>                    
+                    <td>Rp. <?= number_format($value->biaya_penyimpanan * $value->harga/100, 2,',','.') ?></td>                    
                     <td><?= $value->eoq ?></td>                    
                     <td><?= $value->frekuensi_pemesanan ?></td>                    
                     <td><?= $value->rop ?></td>                    

@@ -55,17 +55,21 @@
                       <?php }elseif($value->status == 2){ ?>
                         <small class="label label-info"><i class="fa fa-clock-o"></i> Already ordered </small>                       
                       <?php }else{ ?>
-                        <?php if ($value->stock <= $value->eoq) { ?>
+                        <?php if ($value->stock <= $value->rop) { ?>
                           <a data-toggle="modal" data-target="#modal-primary-<?php echo $value->id ?>" href="javascript::">
                           <small class="label label-danger"><i class="fa fa-clock-o"></i> Your's Stock Need to Order</small></a>
-                        <?php } else{ ?>
+                        <?php } elseif($value->stock <= $value->ss){ ?>
+                          <a data-toggle="modal" data-target="#modal-secondary-<?php echo $value->id ?>" href="javascript::"><small class="label label-warning"><i class="fa fa-clock-o"></i> For Safety Stock, Order Now!</small></a>                          
+                        <?php }elseif(!isset($value->status)){ ?>
                           <small class="label label-danger"><i class="fa fa-clock-o"></i> Update your's stock</small>
+                        <?php }else{ ?>
+                          <small class="label label-info"><i class="fa fa-clock-o"></i> Your's stock is safe</small>
                         <?php } ?>
                       <?php } ?>                      
                     </td>
                     <td><?= $value->stock ?></td>                    
                     <td>Rp. <?= number_format($value->biaya_pemesanan, 2,',','.') ?></td>                    
-                    <td>Rp. <?= number_format($value->biaya_penyimpanan, 2,',','.') ?></td>                    
+                    <td>Rp. <?= number_format($value->biaya_penyimpanan * $value->harga/100, 2,',','.') ?></td>                    
                     <td><?= $value->eoq ?></td>                    
                     <td><?= $value->frekuensi_pemesanan ?></td>                    
                     <td><?= $value->rop ?></td>                    
@@ -107,6 +111,39 @@
                     </div>
                     <!-- /.modal-dialog -->
                   </div> 
+                  <div class="modal modal-primary fade" id="modal-secondary-<?php echo $value->id ?>">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title">Create New Order to Supplier</h4>
+                        </div>
+                        <div class="modal-body">
+                          <form method="post" action="<?php echo base_url('kepala_gudang/store_supp_order_ss/'. $value->id)  ?>">
+                          <div class="form-group">
+                            <label>Nama Supplier</label>
+                            <input type="text" class="form-control" name="supplier_name" placeholder="Enter ..." required>
+                          </div> 
+                          <div class="form-group">
+                            <label>Telp Supplier</label>
+                            <input type="text" class="form-control" name="telp" placeholder="Enter ..." required>
+                          </div>                                                  
+                          <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" rows="6" name="description"> </textarea>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-outline">Order Now</button>                          
+                          </form>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>                   
                 <?php } ?>                               
               </table>
             </div>
