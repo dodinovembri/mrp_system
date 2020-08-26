@@ -68,6 +68,14 @@ class Welcome extends CI_Controller {
 					);
 				$this->session->set_userdata($data_session);	 				
 				redirect(base_url("kepala_gudang")); 				 				
+ 			}elseif ($role->id_role == 4) {
+				$data_session = array(
+					'nama' => $username,
+					'status' => "login",
+					'role' => 4
+					);
+				$this->session->set_userdata($data_session);	 				
+				redirect(base_url("produksi")); 				 				
  			}else{
  				redirect(base_url());
  			}
